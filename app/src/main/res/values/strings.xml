@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Rythm Music</string>
+    <string name="subHeader">_Подзаголовок_</string>
 </resources>

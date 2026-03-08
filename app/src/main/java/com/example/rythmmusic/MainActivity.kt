@@ -12,36 +12,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.rythmmusic.ui.theme.RythmMusicTheme
+import com.google.android.material.button.MaterialButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            RythmMusicTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+        setContentView(R.layout.main_layout)
+        val btn_PauseStart = findViewById<MaterialButton>(R.id.btn_play)
+        var isPlaying = false
+
+        btn_PauseStart.setOnClickListener {
+            if (!isPlaying) {
+                btn_PauseStart.setIconResource(R.drawable.ic_pause)
+                isPlaying = true
+            } else {
+                btn_PauseStart.setIconResource(R.drawable.ic_play)
+                isPlaying = false
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RythmMusicTheme {
-        Greeting("Android")
     }
 }
