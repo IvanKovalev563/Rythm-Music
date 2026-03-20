@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="3"
+    android:layout_marginTop="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="338dp"
+        app:cardCornerRadius="32dp"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="#0044FF" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:scaleY="1.5"
+        android:layout_margin="10dp"
+        android:text="@string/subHeader"
+        android:textScaleX="1.5" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:scaleY="1.25"
+        android:layout_margin="10dp"
+        android:text="@string/Author"
+        android:textScaleX="1.5" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_margin="10dp" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/timeText"
+        android:layout_margin="0dp"
+        android:scaleY="1.5"
+        android:scaleX="1.5"
+        android:layout_gravity="center"
+        android:text="00:00 / 00:00"
+        android:foregroundTint="#333333"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="20dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_prev"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:text=""
+            app:icon="@drawable/ic_prev"
+            app:iconGravity="textStart"
+            app:iconSize="40dp"
+            app:iconPadding="0dp"
+            android:contentDescription="Назад" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_play"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:text=""
+            app:icon="@drawable/ic_pause"
+            app:iconGravity="textStart"
+            app:iconSize="60dp"
+            app:iconPadding="0dp"
+            app:backgroundTint="@android:color/holo_blue_dark"
+            android:contentDescription="Играть" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:text=""
+            app:icon="@drawable/ic_next"
+            app:iconGravity="textStart"
+            app:iconSize="40dp"
+            app:iconPadding="0dp"
+            android:contentDescription="Вперед" />
+
+    </LinearLayout>
+
+</LinearLayout>

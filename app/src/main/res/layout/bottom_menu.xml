@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="horizontal"
+    android:weightSum="3">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mainTabButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="80sp"
+        android:layout_weight="1"
+        android:text=""
+        app:icon="@drawable/ic_home"
+        app:iconGravity="textStart"
+        app:iconSize="40dp"
+        app:iconPadding="0dp"
+        android:layout_margin="3dp"
+        android:contentDescription="Главная"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trackTabButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:text=""
+        app:icon="@drawable/ic_track"
+        app:iconGravity="textStart"
+        app:iconSize="40dp"
+        app:iconPadding="0dp"
+        android:layout_weight="1"
+        android:layout_margin="3dp"
+        android:contentDescription="Главная"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/settingsTabButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:text=""
+        app:icon="@drawable/ic_settings"
+        app:iconGravity="textStart"
+        app:iconSize="40dp"
+        app:iconPadding="0dp"
+        android:layout_weight="1"
+        android:layout_margin="3dp"
+        android:contentDescription="Главная"/>
+
+</LinearLayout>
