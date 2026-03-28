@@ -25,12 +25,12 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        bottomNav.setOnClickListener { item ->
-            val fragment = when (item.id){
-                R.id.page_home -> TrackFragment()
+        bottomNav.setOnItemSelectedListener { item ->
+            val fragment = when (item.itemId){
+                R.id.page_home -> MainFragment()
                 R.id.page_track -> TrackFragment()
                 R.id.page_settings -> TrackFragment()
-                else -> TrackFragment()
+                else -> MainFragment()
             }
 
             supportFragmentManager.beginTransaction()

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Rythm Music</string>
-    <string name="subHeader">_Подзаголовок_</string>
+    <string name="SongName">_Подзаголовок_</string>
     <string name="Author">_Группа_</string>
 </resources>

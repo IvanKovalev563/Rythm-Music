@@ -5,9 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 
-class TrackFragment : Fragment(R.layout.fragment_player) {
+class TrackFragment : Fragment(R.layout.fragment_track) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         // ВНИМАНИЕ: кнопки ищем через view.findViewById
         val btn_PauseStart = view.findViewById<MaterialButton>(R.id.btn_play)
         var isPlaying = false

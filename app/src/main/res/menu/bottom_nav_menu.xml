@@ -7,7 +7,7 @@
     <item
         android:id="@+id/page_track"
         android:icon="@drawable/ic_track"
-        android:title="Трек" />
+        android:title="Песня" />
     <item
         android:id="@+id/page_settings"
         android:icon="@drawable/ic_settings"

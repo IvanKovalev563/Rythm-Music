@@ -6,14 +6,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="3"
-    android:layout_marginTop="10dp">
+    android:weightSum="100"
+    android:layout_marginTop="5sp"
+    android:fitsSystemWindows="true">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="338dp"
         app:cardCornerRadius="32dp"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:layout_weight="50">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -25,70 +27,72 @@
 
     <TextView
         android:id="@+id/textView1"
+        android:layout_weight="10"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="40sp"
         android:gravity="center"
         android:scaleY="1.5"
-        android:layout_margin="10dp"
-        android:text="@string/subHeader"
+        android:text="@string/SongName"
         android:textScaleX="1.5" />
 
     <TextView
         android:id="@+id/textView2"
+        android:layout_weight="5"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="40sp"
         android:gravity="center"
         android:scaleY="1.25"
-        android:layout_margin="10dp"
         android:text="@string/Author"
-        android:textScaleX="1.5" />
+        android:textScaleX="1.25" />
 
     <SeekBar
         android:id="@+id/seekBar"
+        android:layout_weight="2"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_margin="10dp" />
+        android:layout_height="46dp" />
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_weight="3"
         android:id="@+id/timeText"
-        android:layout_margin="0dp"
-        android:scaleY="1.5"
-        android:scaleX="1.5"
+        android:scaleY="1.2"
+        android:scaleX="1.2"
         android:layout_gravity="center"
         android:text="00:00 / 00:00"
         android:foregroundTint="#333333"/>
 
     <LinearLayout
+        android:layout_weight="30"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:padding="20dp">
+        android:weightSum="3"
+        android:layout_marginBottom="25dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_prev"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="60sp"
             android:layout_weight="1"
             android:text=""
             app:icon="@drawable/ic_prev"
             app:iconGravity="textStart"
-            app:iconSize="40dp"
             app:iconPadding="0dp"
+            app:iconSize="35dp"
             android:contentDescription="Назад" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_play"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="90sp"
             android:layout_weight="1"
             android:text=""
             app:icon="@drawable/ic_pause"
             app:iconGravity="textStart"
-            app:iconSize="60dp"
+            app:iconSize="50dp"
             app:iconPadding="0dp"
             app:backgroundTint="@android:color/holo_blue_dark"
             android:contentDescription="Играть" />
@@ -97,13 +101,13 @@
             android:id="@+id/btn_next"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="60sp"
             android:layout_weight="1"
             android:text=""
             app:icon="@drawable/ic_next"
             app:iconGravity="textStart"
-            app:iconSize="40dp"
             app:iconPadding="0dp"
+            app:iconSize="35dp"
             android:contentDescription="Вперед" />
 
     </LinearLayout>
