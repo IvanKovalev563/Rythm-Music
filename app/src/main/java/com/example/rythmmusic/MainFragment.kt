@@ -8,15 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 
 class MainFragment : Fragment(R.layout.fragment_main) {
+
+    val mainActivity = MainActivity()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_songs)
 
-        val mySongs = listOf(
-            ClassSong("Starboy", "The Weeknd", R.drawable.water, true),
-            ClassSong("After Hours", "The Weeknd", R.drawable.wind, true)
-        )
+        val mySongs = (requireActivity() as MainActivity).allSongs
+        if (mySongs.isEmpty()) {
+            // Выведи сообщение, если список пуст
+            android.util.Log.d("MY_APP", "Список песен в активити всё еще пуст!")
+        }
 
         val adapter = SongAdapter(mySongs){ selectedSong ->
             val bottomNav = requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
@@ -30,7 +34,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     R.anim.slide_in_up,   // Вход нового фрагмента
                     android.R.anim.fade_out,      // Выход старого фрагмента
                     android.R.anim.fade_in,       // Вход старого при нажатии "Назад"
-                    R.anim.slide_out_down
+                    R.anim.slide_out_down  // Выход нового при нажатии "Назад"
                 )
                 .replace(R.id.fragment_container, TrackFragment())
                 .addToBackStack(null)

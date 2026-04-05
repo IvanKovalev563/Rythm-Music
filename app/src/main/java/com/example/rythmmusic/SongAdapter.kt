@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 
 class SongAdapter(private val songs: List<ClassSong>, private val onClick: (ClassSong) -> Unit) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
@@ -29,7 +30,11 @@ class SongAdapter(private val songs: List<ClassSong>, private val onClick: (Clas
         val song = songs[position]
         holder.title.text = song.title
         holder.author.text = song.author
-        holder.cover.setImageResource(song.coverImg)
+        com.bumptech.glide.Glide.with(holder.itemView.context)
+            .load(song.coverImg)
+            .placeholder(R.drawable.ic_track)
+            .error(R.drawable.ic_error)
+            .into(holder.cover)
 
         holder.itemView.setOnClickListener {
             onClick(song)

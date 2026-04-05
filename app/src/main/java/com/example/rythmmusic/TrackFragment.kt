@@ -16,7 +16,14 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
         song?.let {
             view.findViewById<TextView>(R.id.text_title)?.text = it.title
             view.findViewById<TextView>(R.id.text_artist)?.text = it.author
-            view.findViewById<ImageView>(R.id.img_cover)?.setImageResource(it.coverImg)
+            val imageView = view.findViewById<ImageView>(R.id.img_cover)
+            if (imageView != null) {
+                com.bumptech.glide.Glide.with(this)
+                    .load(it.coverImg)
+                    .placeholder(R.drawable.ic_track)
+                    .error(R.drawable.ic_error)
+                    .into(imageView)
+            }
         }
 
         // ВНИМАНИЕ: кнопки ищем через view.findViewById
@@ -48,7 +55,14 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
         song?.let {
             currentView.findViewById<TextView>(R.id.text_title)?.text = it.title
             currentView.findViewById<TextView>(R.id.text_artist)?.text = it.author
-            currentView.findViewById<ImageView>(R.id.img_cover)?.setImageResource(it.coverImg)
+            val imageView = view?.findViewById<ImageView>(R.id.img_cover)
+            if (imageView != null) {
+                com.bumptech.glide.Glide.with(this)
+                    .load(it.coverImg)
+                    .placeholder(R.drawable.ic_track)
+                    .error(R.drawable.ic_error)
+                    .into(imageView)
+            }
         }
     }
 }

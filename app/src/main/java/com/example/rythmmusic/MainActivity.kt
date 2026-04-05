@@ -1,6 +1,8 @@
 package com.example.rythmmusic
 
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,8 +22,25 @@ import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
 
+    var allSongs: List<ClassSong> = listOf()
     var currentSong: ClassSong? = null
     var currentItemId = R.id.page_home // Запоминаем текущий ID
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            // Разрешение получено, сканируем музыку
+            scanMusic()
+            // И можно сразу загрузить фрагмент
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_up,
+                    android.R.anim.fade_in
+                )
+                .replace(R.id.fragment_container, MainFragment())
+                .commit()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             androidx.core.app.ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),100)
         }
         else{
-            //loadSongs()
+            scanMusic()
         }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -60,8 +79,13 @@ class MainActivity : AppCompatActivity() {
                 .commit()
 
             currentItemId = item.itemId
+
             true
         }
+    }
+
+    fun scanMusic() {
+        allSongs = getMusicFromDefaultFolder()
     }
 
     private fun getMenuPosition(itemId: Int): Int {
@@ -71,5 +95,49 @@ class MainActivity : AppCompatActivity() {
             R.id.page_settings -> 2
             else -> 0
         }
+    }
+
+    fun getMusicFromDefaultFolder(): List<ClassSong> {
+        val songs = mutableListOf<ClassSong>()
+        val uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+
+        val defaultMusicPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath
+
+        val projection = arrayOf(
+            android.provider.MediaStore.Audio.Media.TITLE,
+            android.provider.MediaStore.Audio.Media.ARTIST,
+            android.provider.MediaStore.Audio.Media.DATA,
+            android.provider.MediaStore.Audio.Media.ALBUM_ID
+        )
+
+        val selection = "${android.provider.MediaStore.Audio.Media.DATA} LIKE ?"
+        val selectionArgs = arrayOf("$defaultMusicPath%")
+
+        val cursor = contentResolver.query(uri, projection, selection, selectionArgs, null)
+
+        cursor?.use {
+            val titleId = it.getColumnIndexOrThrow(android.provider.MediaStore.Audio.Media.TITLE)
+            val artistId = it.getColumnIndexOrThrow(android.provider.MediaStore.Audio.Media.ARTIST)
+            val pathId = it.getColumnIndexOrThrow(android.provider.MediaStore.Audio.Media.DATA)
+            val albumIdId = it.getColumnIndexOrThrow(android.provider.MediaStore.Audio.Media.ALBUM_ID)
+
+            while(it.moveToNext()){
+                val albumId = it.getLong(albumIdId)
+
+                val coverURI = android.content.ContentUris.withAppendedId(
+                    android.net.Uri.parse("content://media/external/audio/albumart"),
+                    albumId
+                ).toString()
+
+                songs.add(ClassSong(
+                    title = it.getString(titleId) ?: "Unknown",
+                    author = it.getString(artistId) ?: "Unknown",
+                    coverImg = coverURI,
+                    favorite = false,
+                    path = it.getString(pathId)
+                ))
+            }
+        }
+        return songs
     }
 }
