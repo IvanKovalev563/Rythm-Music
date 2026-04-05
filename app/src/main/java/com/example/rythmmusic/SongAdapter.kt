@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class SongAdapter(private val songs: List<ClassSong>) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
+class SongAdapter(private val songs: List<ClassSong>, private val onClick: (ClassSong) -> Unit) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
 
     // 1. "Кладовка" (ViewHolder): находит и держит ссылки на View внутри одного бокса,
     // чтобы не искать их через findViewById каждый раз при скролле (это ускоряет работу).
@@ -30,6 +30,10 @@ class SongAdapter(private val songs: List<ClassSong>) : RecyclerView.Adapter<Son
         holder.title.text = song.title
         holder.author.text = song.author
         holder.cover.setImageResource(song.coverImg)
+
+        holder.itemView.setOnClickListener {
+            onClick(song)
+        }
     }
 
     // 4. "Отчет": говорит системе, сколько всего товаров на полке.

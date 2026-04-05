@@ -49,6 +49,18 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="25dp"
+        app:cardCornerRadius="25dp"
+        android:backgroundTint="#07FFFFFF"
+        android:text="Избранные треки"
+        android:textSize="18sp"
+        android:textColor="#EEEEEE"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_songs"
         android:layout_width="match_parent"

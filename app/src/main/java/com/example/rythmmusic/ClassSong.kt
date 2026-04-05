@@ -4,5 +4,5 @@ data class ClassSong (
     val title: String,
     val author: String,
     val coverImg: Int,
-    val favorite: Boolean
+    var favorite: Boolean = false
 )

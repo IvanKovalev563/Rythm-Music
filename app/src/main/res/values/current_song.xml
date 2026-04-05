@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="current_song_name"> _null_ </string>
+    <string name="current_song_author"> _null_ </string>
+    <drawable name="current_song_cover"> </drawable>
+    <bool name="current_song_isFavorite"> false </bool>
+    <string name="current_song_timing"> 00:00 / 00:00</string>
+
+</resources>
