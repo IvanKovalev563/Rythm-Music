@@ -50,7 +50,6 @@
             app:iconSize="36dp"
             app:iconPadding="0dp"
             />
-
     </LinearLayout>
 
 

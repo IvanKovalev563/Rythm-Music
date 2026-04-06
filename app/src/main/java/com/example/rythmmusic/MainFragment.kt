@@ -27,7 +27,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             val mainActivity = requireActivity() as MainActivity
             mainActivity.currentSong = selectedSong
-
+            mainActivity.playMusic(selectedSong.path)
 
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(

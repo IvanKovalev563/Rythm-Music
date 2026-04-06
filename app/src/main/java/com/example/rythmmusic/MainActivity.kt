@@ -22,6 +22,7 @@ import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
 
+    private var mediaPlayer: android.media.MediaPlayer? = null
     var allSongs: List<ClassSong> = listOf()
     var currentSong: ClassSong? = null
     var currentItemId = R.id.page_home // Запоминаем текущий ID
@@ -139,5 +140,70 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return songs
+    }
+
+    fun playMusic(songPath: String){
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+
+        mediaPlayer = android.media.MediaPlayer().apply {
+            setDataSource(songPath)
+            prepare()
+            start()
+        }
+    }
+
+    fun PlayOrPause(): Boolean {
+        val mediaPlayer_ = mediaPlayer ?: return false
+
+        if(mediaPlayer_.isPlaying){
+            mediaPlayer_.pause()
+            return false
+        }
+        else{
+            mediaPlayer_.start()
+            return true
+        }
+    }
+
+    fun nextSong(){
+        if (allSongs.isEmpty()){
+            return
+        }
+
+        val currentIndex = allSongs.indexOf(currentSong)
+        val nextIndex = (currentIndex + 1) % allSongs.size
+
+        currentSong = allSongs[nextIndex]
+        currentSong?.let { playMusic(it.path) }
+    }
+
+    fun prevSong(){
+        if (allSongs.isEmpty()){
+            return
+        }
+
+        val currentIndex = allSongs.indexOf(currentSong)
+        var prevIndex = currentIndex - 1
+        if (prevIndex < 0) prevIndex = allSongs.size - 1
+
+        currentSong = allSongs[prevIndex]
+        currentSong?.let { playMusic(it.path) }
+    }
+
+    fun getDuration(): Int = mediaPlayer?.duration ?: 0
+    fun getCurrentPosition(): Int = mediaPlayer?.currentPosition ?: 0
+    fun seekTo(position: Int) { mediaPlayer?.seekTo(position) }
+
+    fun formatTime(ms: Int): String {
+        val minutes = (ms / 1000) / 60
+        val seconds = (ms / 1000) % 60
+        return String.format("%02d:%02d", minutes, seconds)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }
