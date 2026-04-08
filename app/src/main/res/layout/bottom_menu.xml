@@ -35,7 +35,7 @@
         app:iconPadding="0dp"
         android:layout_weight="1"
         android:layout_margin="3dp"
-        android:contentDescription="Главная"/>
+        android:contentDescription="Трек"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/settingsTabButton"
@@ -43,12 +43,12 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:text=""
-        app:icon="@drawable/ic_settings"
+        app:icon="@drawable/ic_favorite_on"
         app:iconGravity="textStart"
         app:iconSize="40dp"
         app:iconPadding="0dp"
         android:layout_weight="1"
         android:layout_margin="3dp"
-        android:contentDescription="Главная"/>
+        android:contentDescription="Избранное"/>
 
 </LinearLayout>

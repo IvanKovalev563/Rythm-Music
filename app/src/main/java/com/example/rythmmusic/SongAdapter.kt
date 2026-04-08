@@ -27,7 +27,7 @@ class SongAdapter(private val songs: List<ClassSong>, private val onClick: (Clas
 
     // 3. "Заполнение": берет пустую плитку и вписывает в неё данные конкретной песни.
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
-        val song = songs[position]
+        val song = displaySongs[position]
         holder.title.text = song.title
         holder.author.text = song.author
         com.bumptech.glide.Glide.with(holder.itemView.context)
@@ -41,6 +41,14 @@ class SongAdapter(private val songs: List<ClassSong>, private val onClick: (Clas
         }
     }
 
-    // 4. "Отчет": говорит системе, сколько всего товаров на полке.
-    override fun getItemCount() = songs.size
+    private var displaySongs: List<ClassSong> = songs // Создаем копию для отображения
+
+    fun updateList(newList: List<ClassSong>) {
+        displaySongs = newList
+        notifyDataSetChanged() // Приказываем списку перерисоваться
+    }
+
+    // ВАЖНО: во всех методах (getItemCount, onBindViewHolder)
+// теперь используй displaySongs[position] вместо songs[position]
+    override fun getItemCount() = displaySongs.size
 }

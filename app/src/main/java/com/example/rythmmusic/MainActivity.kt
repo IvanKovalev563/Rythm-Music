@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             val fragment = when (item.itemId){
                 R.id.page_home -> MainFragment()
                 R.id.page_track -> TrackFragment()
-                R.id.page_settings -> TrackFragment()
+                R.id.page_favorite -> FavoriteFragment()
                 else -> MainFragment()
             }
 
@@ -85,15 +85,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun scanMusic() {
-        allSongs = getMusicFromDefaultFolder()
+    fun openFavoriteFragment() {
+        val fragment = FavoriteFragment()
+        supportFragmentManager.beginTransaction()
+            // Используем анимацию "выезда" в зависимости от логики меню
+            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+
+        // ВАЖНО: Переключи иконку в нижнем меню на "Избранное"
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.menu.findItem(R.id.page_favorite).isChecked = true // Замени ID на свой для избранного
+        currentItemId = R.id.page_favorite
     }
 
     private fun getMenuPosition(itemId: Int): Int {
         return when (itemId) {
             R.id.page_home -> 0
             R.id.page_track -> 1
-            R.id.page_settings -> 2
+            R.id.page_favorite -> 2
             else -> 0
         }
     }
@@ -201,7 +211,39 @@ class MainActivity : AppCompatActivity() {
         return String.format("%02d:%02d", minutes, seconds)
     }
 
-    override fun onDestroy() {
+    fun toggleFavorite(songPath: String) {
+        val prefs = getSharedPreferences("MusicPrefs", MODE_PRIVATE)
+        val favorites = getFavorites().toMutableSet()
+
+        if (favorites.contains(songPath)) {
+            favorites.remove(songPath)
+        } else {
+            favorites.add(songPath)
+        }
+
+        prefs.edit().putStringSet("fav_list", favorites).apply()
+
+        allSongs.find { it.path == songPath }?.favorite = favorites.contains(songPath)
+    }
+
+    fun getFavorites(): Set<String> {
+        val prefs = getSharedPreferences("MusicPrefs", MODE_PRIVATE)
+        return prefs.getStringSet("fav_list", setOf()) ?: setOf()
+    }
+
+    fun scanMusic() {
+        allSongs = getMusicFromDefaultFolder()
+
+        // СИНХРОНИЗАЦИЯ: отмечаем лайками те песни, которые сохранены в памяти
+        val savedFavs = getFavorites() // та функция из SharedPreferences
+        allSongs.forEach { song ->
+            if (savedFavs.contains(song.path)) {
+                song.favorite = true
+            }
+        }
+    }
+
+        override fun onDestroy() {
         super.onDestroy()
         mediaPlayer?.release()
         mediaPlayer = null

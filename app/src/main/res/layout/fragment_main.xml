@@ -39,6 +39,7 @@
                 android:layout_margin="12dp"/>
 
             <EditText
+                android:id="@+id/search_text"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="19"
@@ -50,7 +51,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_favorite"
+        android:id="@+id/btn_favorites"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="10dp"

@@ -15,7 +15,6 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val song = (requireActivity() as MainActivity).currentSong
 
         song?.let {
@@ -35,8 +34,20 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
         val btn_PauseStart = view.findViewById<MaterialButton>(R.id.btn_play)
         val btn_nextSong = view.findViewById<MaterialButton>(R.id.btn_next)
         val btn_prevSong = view.findViewById<MaterialButton>(R.id.btn_prev)
+        val btn_favorite = view.findViewById<MaterialButton>(R.id.btn_favorite)
         val seekBar = view.findViewById<SeekBar>(R.id.seekBar)
         val textTime = view.findViewById<TextView>(R.id.timeText)
+
+        fun updateFavIcon(isFav: Boolean) {
+            if (isFav) {
+                btn_favorite.setIconResource(R.drawable.ic_favorite_on) // Закрашенное (или наоборот, проверь свои иконки)
+            } else {
+                btn_favorite.setIconResource(R.drawable.ic_favorite_off) // Контур
+            }
+        }
+
+        val mainActivity = (requireActivity() as MainActivity)
+        updateFavIcon(mainActivity.currentSong?.favorite ?: false)
 
         btn_PauseStart.setOnClickListener {
             val isPlaying = (requireActivity() as MainActivity).PlayOrPause()
@@ -58,6 +69,14 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
             val main = requireActivity() as MainActivity
             main.prevSong()
             updateUI()
+        }
+
+        btn_favorite?.setOnClickListener {
+            val main = requireActivity() as MainActivity
+            main.currentSong?.let { song ->
+                main.toggleFavorite(song.path) // Меняем в базе
+                updateFavIcon(song.favorite)   // Меняем иконку
+            }
         }
 
         seekBar.setOnSeekBarChangeListener(object: android.widget.SeekBar.OnSeekBarChangeListener {
@@ -106,6 +125,14 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
             currentView.findViewById<TextView>(R.id.text_title)?.text = it.title
             currentView.findViewById<TextView>(R.id.text_artist)?.text = it.author
             val imageView = view?.findViewById<ImageView>(R.id.img_cover)
+            val btnFav = currentView.findViewById<MaterialButton>(R.id.btn_favorite)
+            if (it.favorite) {
+                btnFav?.setIconResource(R.drawable.ic_favorite_on)
+            }
+            else {
+                btnFav?.setIconResource(R.drawable.ic_favorite_off)
+            }
+
             if (imageView != null) {
                 com.bumptech.glide.Glide.with(this)
                     .load(it.coverImg)

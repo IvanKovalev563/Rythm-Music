@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_track"
         android:title="Песня" />
     <item
-        android:id="@+id/page_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="Настройки" />
+        android:id="@+id/page_favorite"
+        android:icon="@drawable/ic_favorite_on"
+        android:title="Избранное" />
 </menu>
